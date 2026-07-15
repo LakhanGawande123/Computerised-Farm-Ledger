@@ -10,5 +10,4 @@ public class ComputerisedFarmLedgerApplication {
 		SpringApplication.run(ComputerisedFarmLedgerApplication.class, args);
 	}
 
-
 }
