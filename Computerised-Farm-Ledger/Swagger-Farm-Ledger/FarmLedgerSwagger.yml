@@ -1,0 +1,131 @@
+openapi: 3.0.0
+info:
+  title: Farm Ledger API
+  description: API documentation for the Farm Ledger application.
+  version: 1.0.0
+servers:
+  - url: http://localhost:9001/api
+paths:
+  /farmers/{farmerId}/plots:
+    post:
+      summary: Create Plot
+      description: Create a new plot for a farmer.
+      parameters:
+        - name: farmerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlotRequestDTO'
+      responses:
+        "201":
+          description: Plot created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlotResponseDTO'
+        "400":
+          description: Bad Request - Invalid input.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /plots/{plotId}:
+    get:
+      summary: Get Plot by ID
+      description: Retrieve a plot by its ID.
+      parameters:
+        - name: plotId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Plot retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlotResponseDTO'
+        "400":
+          description: Bad Request - Invalid plot ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Plot not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    PlotRequestDTO:
+      type: object
+      properties:
+        plotName:
+          type: string
+        surveyNumber:
+          type: string
+        gatNumber:
+          type: string
+        area:
+          type: number
+        soilType:
+          type: string
+        waterSource:
+          type: string
+        irrigationType:
+          type: string
+        location:
+          type: string
+        ownershipType:
+          type: string
+    PlotResponseDTO:
+      type: object
+      properties:
+        plotId:
+          type: integer
+        plotName:
+          type: string
+        surveyNumber:
+          type: string
+        gatNumber:
+          type: string
+        area:
+          type: number
+        soilType:
+          type: string
+        waterSource:
+          type: string
+        irrigationType:
+          type: string
+        location:
+          type: string
+        ownershipType:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
