@@ -8,6 +8,7 @@ public class ComputerisedFarmLedgerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ComputerisedFarmLedgerApplication.class, args);
+		System.out.println("Hello");
 	}
 
 }
